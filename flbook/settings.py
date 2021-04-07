@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-dv&v1+r45%9m*npnhtdh+58zyp)qa!tc^#)+70=uo-%sb=xyqx'
+SECRET_KEY = 'django-insecure-dv&omarv1+r45%9m*npnfarukhtdh+58zyp)qa!tc^#)+70=uo-%sb=xyqx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -54,7 +54,7 @@ ROOT_URLCONF = 'flbook.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,6 +118,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static_project',
+    # BASE_DIR / 'posts' / 'static',
+    # BASE_DIR / 'profiles' / 'static',
+]
+
+import os
+STATIC_ROOT = os.path.join(os.path.dirname('flbook'), 'static_cdn', 'static_root')
+# STATIC_ROOT = os.path.join(os.path.dirname('BASE_DIR'), 'static_cdn', 'static_root')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(os.path.dirname('flbook'), 'static_cdn', 'media_root')
+# MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static_cdn', 'media_root')
+
+# MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
