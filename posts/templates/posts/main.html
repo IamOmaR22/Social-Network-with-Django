@@ -27,12 +27,33 @@ Posts
                             &nbsp;{{ obj.num_likes }}
                         </form>
                     </div>
+                    <!-- comments -->
+                    <div>
+                        {% if obj.comment_set.all %}  <!-- if comment exist. i applied here reverse relationship -->
+                            {% for c in obj.comment_set.all %}
+                                <p>{{ c.body }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <!-- comment form -->
+                    <form action="" method="post" class="ui form">
+                        {% csrf_token %}
+                        <input type="hidden" name="post_id" value="{{obj.id}}">
+                        {{ c_form }}
+                        <button type="submit" class="ui primary button" name="submit_c_form">Comment</button>
+                    </form>
                 </div>
             {% endfor %}
         </div>
         <div class="five wide column">
-            FORM
-            {{profile}}
+            {% if post_added %}
+            <div class="ui green message">Post added</div>
+            {% endif %}
+            <form action="" method="post" class="ui form" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ p_form.as_p }}
+                <button type="submit" class="ui button positive" name="submit_p_form">Send Post</button>
+            </form>
         </div>
     </div>
 </div>
