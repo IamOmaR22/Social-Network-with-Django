@@ -7,25 +7,44 @@ from django.template.defaultfilters import slugify
 from django.db.models import Q
 # Create your models here.
 
+'''
+Django Model Manager  -- Manager is responsible for the communication with the database 
+
+While creating queryset we use objects as the default model Manager for each model. But we can extended it
+very easy to organise our code just a little bit better. We will do it with the help of custom Manager.
+
+With the help of the custom Manager we are going to get invitations received from different users all the
+profiles in our system excluding of course ourselves. And finally all the profiles that we can invite to
+our friends.
+
+Create RelationshipManager class and in order to have RelationshipManager working need to write 
+objects = RelationshipManager() inside Relationship model. Then create views, url and templates for this.
+
+
+Create ProfileManager class and in order to have ProfileManager working write objects = ProfileManager()
+inside Profile model. Then create views, url and templates for this.
+'''
+
 class ProfileManager(models.Manager):
-    def get_all_profiles_to_invite(self, sender):
-        profiles = Profile.objects.all().exclude(user=sender)  # sender from Relationship model.
+    # Get all the profiles whom I can send invites.
+    def get_all_profiles_to_invite(self, sender): # sender because we need to know who is the sender.
+        profiles = Profile.objects.all().exclude(user=sender)  # sender from Relationship model. And excluding our own.
         profile = Profile.objects.get(user=sender)
         qs = Relationship.objects.filter(Q(sender=profile) | Q(receiver=profile))
 
-        accepted = []
+        accepted = set([])  # It will take unique and will not take duplicate value/users. For this set, we will use add() instead of append()
         for rel in qs:
             if rel.status == 'accepted':
-                accepted.append(rel.receiver)
-                accepted.append(rel.sender)
+                accepted.add(rel.receiver) # instead of append() write add() for set in empty list.
+                accepted.add(rel.sender)
         print(accepted)
 
-        available = [profile for profile in profiles if profile not in accepted] # List comprehension
+        available = [profile for profile in profiles if profile not in accepted] # List comprehension. List of all the available profile to invite.
         print(available)
         return available
 
-    def get_all_profiles(self, me):
-        profiles = Profile.objects.all().exclude(user=me)
+    def get_all_profiles(self, me): # Get all the profiles which are available excluding me.
+        profiles = Profile.objects.all().exclude(user=me) # Excluded by user field from Profile model and user is set to me.
         return profiles
 
 class Profile(models.Model):
@@ -95,8 +114,9 @@ STATUS_CHOICES = (   # for status field.
 )
 
 class RelationshipManager(models.Manager):
-    def invitations_received(self, receiver): # receiver is the ForeignKey field of Relationship model.
-        qs = Relationship.objects.filter(receiver=receiver, status='send')
+    # This will give us all the invitations that we received from different users.
+    def invitations_received(self, receiver): # receiver is the ForeignKey(to the Profile) field of Relationship model.
+        qs = Relationship.objects.filter(receiver=receiver, status='send') # receiver(first one) that is we pass over here.
         return qs
 
     # Relationship.objects.invitations_received(myprofile)  # All the relationship received for this particular profile.
