@@ -44,3 +44,7 @@ body {
     background-color: transparent !important;
 }
 
+.w-big {
+    width: 200px !important;
+}
+
