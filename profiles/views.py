@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Profile, Relationship
 from .forms import ProfileModelForm
 from django.views.generic import ListView
@@ -26,13 +26,40 @@ def my_profile_view(request):
 
 def invites_received_view(request):  # Others user when send me a request.
     profile = Profile.objects.get(user=request.user)
-    qs = Relationship.objects.invitations_received(profile)  # Geeting all the invitations for this particular profile.
+    qs = Relationship.objects.invitations_received(profile)  # Geeting all the invitations for this particular profile. invitations_received function from model Manager.
 
+    results = list(map(lambda x: x.sender, qs)) # To see only the senders. If we pass qs only then we will see the receiver also.
+    is_empty = False
+    if len(results) == 0:
+        is_empty = True
+    
     context = {
-        'qs': qs,
+        'qs': results,
+        'is_empty': is_empty,
     }
     return render(request, 'profiles/my_invites.html', context)
 
+
+def accept_invitation(request):
+    if request.method == 'POST':
+        pk = request.POST.get('profile_pk') # Graving the pk.
+        sender = Profile.objects.get(pk=pk) # Get sender by the pk
+        receiver = Profile.objects.get(user=request.user)
+        rel = get_object_or_404(Relationship, sender=sender, receiver=receiver)
+        if rel.status == 'send':
+            rel.status = 'accepted'
+            rel.save()
+    return redirect('profiles:my-invites-view')
+
+
+def reject_invitation(request):
+    if request.method == 'POST':
+        pk = request.POST.get('profile_pk') # Graving the pk.
+        sender = Profile.objects.get(pk=pk)
+        receiver = Profile.objects.get(user=request.user)
+        rel = get_object_or_404(Relationship, sender=sender, receiver=receiver)
+        rel.delete()
+    return redirect('profiles:my-invites-view')
 
 
 def invite_profiles_list_view(request): # The list of the profiles whom I can send invites.
@@ -100,7 +127,7 @@ def send_invitations(request):
     return redirect('profiles:my-profile-view')
 
 
-def remove_from_friends(request):
+def remove_from_friends(request):  # Also write some code in signals.
     if request.method == 'POST':
         pk = request.POST.get('profile_pk')  # profile_pk is the name of input field inside the form into html.
         user = request.user
