@@ -19,7 +19,7 @@ all profiles
                 <div class="thirteen wide column">
                     <h3>{{ obj.user }}</h3>
                     <p>{{ obj.bio }}</p>
-                    <button class="ui primary button mb-5 w-big">See Profile</button>
+                    <a href="{{ obj.get_absolute_url }}"><button class="ui primary button mb-5 w-big">See Profile</button></a>
                     <br>
                 
                 <!-- Adding to friends. Sending invitations. form -->

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Profile, Relationship
 from .forms import ProfileModelForm
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.contrib.auth.models import User
 from django.db.models import Q
 # Create your views here.
@@ -112,6 +112,34 @@ class ProfileListView(ListView):
         context['is_empty'] = False
         if len(self.get_queryset()) == 0:
             context['is_empty'] = True
+        return context
+
+
+class ProfileDetailView(DetailView):
+    model = Profile
+    template_name = 'profiles/profile_detail.html'
+    
+    def get_object(self, slug=None):
+        slug = self.kwargs.get('slug')
+        profile = Profile.objects.get(slug=slug)
+        return profile
+
+    def get_context_data(self, **kwargs): # This method allows us to provide some additional context to the template. 
+        context = super().get_context_data(**kwargs)
+        user = User.objects.get(username__iexact=self.request.user)   # Grab this user. This should give us each time a user.
+        profile = Profile.objects.get(user=user) # Grab the profile once we get the user.
+        rel_r = Relationship.objects.filter(sender=profile)   # Relationship receiver where we are going to simply query relationships by the sender equal to our profile. Here we are storing relationships where we invited other users to friends. 
+        rel_s = Relationship.objects.filter(receiver=profile)  # Relationship sender where we are going to simply query relationships by the receiver equal to our profile.        
+        rel_receiver = []
+        rel_sender = []
+        for item in rel_r:
+            rel_receiver.append(item.receiver.user) # receiver is relate to the user.
+        for item in rel_s:
+            rel_sender.append(item.sender.user)
+        context['rel_receiver'] = rel_receiver 
+        context['rel_sender'] = rel_sender 
+        context['posts'] = self.get_object().get_all_authors_posts()   # Get all the post of this particular profile. get_all_authors_posts from models.py file.
+        context['len_posts'] = True if len(self.get_object().get_all_authors_posts()) > 0 else False
         return context
 
 
