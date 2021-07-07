@@ -37,9 +37,11 @@
                         
                             <button type="submit" class="ui omar-lutfa button like-btn{{obj.id}}">
                                 {% if profile not in obj.liked.all %}
-                                    <i class="heart outline icon"></i> <!-- Like -->
+                                    {# <i class="heart outline icon"></i> #}<!-- Like --> 
+                                    Like
                                 {% else %}
-                                    <i class="heart icon"></i> <!-- Unlike -->
+                                    {# <i class="heart icon"></i> #}<!-- Unlike -->
+                                    Unlike
                                 {% endif %}
                             </button>
                             <div class="ui grid">

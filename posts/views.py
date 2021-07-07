@@ -71,6 +71,13 @@ def like_unlike_post(request):
 
             post_obj.save()
             like.save()
+
+        data = {
+            'value': like.value,
+            'likes': post_obj.liked.all().count()
+        }
+        return JsonResponse(data, safe=False)
+        
     return redirect('posts:main-post-view')
 
 
