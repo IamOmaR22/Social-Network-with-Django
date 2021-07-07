@@ -8,14 +8,14 @@ all profiles
 {% if is_empty %}
     <h1>No Profiles</h1>
 {% endif %}
-
-{% for obj in object_list %}
-    <div class="ui segment">
-        <div class="ui grid">
-            <div class="row">
+<div class="ui grid container" style="padding-left:3%;">
+    <div class="row">
+        {% for obj in object_list %}
+            <div class="ui segment" style="margin: 4px;">
                 <div class="three wide column">
-                    <img class="ui small circular image" src="{{ obj.avatar.url }}" alt="">
+                    <img class="ui small circular image" src="{{ obj.avatar.url }}" alt="{{ obj.user }}" >
                 </div>
+
                 <div class="thirteen wide column">
                     <h3>{{ obj.user }}</h3>
                     <p>{{ obj.bio }}</p>
@@ -48,9 +48,9 @@ all profiles
                     {% endif %}
                 </div>
             </div>
-        </div>
+        {% endfor %}
     </div>
-{% endfor %}
+</div>
 {% endblock content %}
 
 {% comment %}

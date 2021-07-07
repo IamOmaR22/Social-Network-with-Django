@@ -59,11 +59,16 @@ Profile detail
         </div>
         <div class="twelve wide column">
             {% if len_posts %}
-                {% for post in posts %}
-                    <div class="ui segment fluid">
-                        {{ post.content }}
-                    </div>
-                {% endfor %}
+                <div class="ui three column grid">
+                    {% for post in posts %}
+                        <div class="column">
+                            <div class="ui segment">
+                                <p style="font-weight: bolder; color: #752975;">{{ post.content }}</p>
+                                <img src="{{post.image.url}}" class='ui small image'>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
             {% else %}
                 <h1>No posts of this user .....</h1>
             {% endif %}

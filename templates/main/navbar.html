@@ -26,13 +26,13 @@
               <div class="ui floating dropdown icon button teal" id="nav_drop"> Friends
                   <i class="dropdown icon"></i>
                   <div class="menu" style="background-color: #1A202C;">
-                      <a href="{{path_to_all_profiles}}" class="{% if request.path == path_to_all_profiles %}active{% endif %} item" style="color: rgb(108, 234, 243) !important;">
+                      <a href="{{path_to_all_profiles}}" class="{% if request.path == path_to_all_profiles %}active{% endif %} item" id="drop_item">
                           All Profiles
                       </a>
-                      <a href="{{path_to_invites}}" class="{% if request.path == path_to_invites %}active{% endif %} item" style="color: rgb(108, 234, 243) !important;">
+                      <a href="{{path_to_invites}}" class="{% if request.path == path_to_invites %}active{% endif %} item" id="drop_item">
                           Send Invites
                       </a>
-                      <a href="{{path_to_my_invites}}" class="{% if request.path == path_to_my_invites %}active{% endif %} item" style="color: rgb(108, 234, 243) !important;">
+                      <a href="{{path_to_my_invites}}" class="{% if request.path == path_to_my_invites %}active{% endif %} item" id="drop_item">
                           Received Invites &nbsp; <div class="ui purple horizontal label">{{invites_num}}</div>
                       </a>
                   </div>

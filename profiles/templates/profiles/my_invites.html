@@ -9,19 +9,19 @@ my invites
 {% if is_empty %}
     <h1>No invitations here...</h1>
 {% endif %}
-
-{% for obj in qs %}
-    <div class="ui segment">
-        <div class="ui grid">
-            <div class="row">
+        
+<div class="ui grid centered">
+    <div class="row">
+        {% for obj in qs %}
+            <div class="ui segment fluid" style="margin: 4px;">
                 <div class="three wide column">
-                    <img class="ui small circular image" src="{{ obj.avatar.url }}" alt="">
+                    <img class="ui small circular image centered" src="{{ obj.avatar.url }}" alt="">
                 </div>
                 <div class="thirteen wide column">
                     <h3>{{ obj.user }}</h3>
                     <p>{{ obj.bio }}</p>
                     <br>
-                    <a href="">
+                    <a href="{{ obj.get_absolute_url }}">
                         <button class="ui primary button w-big mb-5">See profile</button>
                     </a>
 
@@ -40,8 +40,8 @@ my invites
                     </form>
                 </div>
             </div>
-        </div>
+        {% endfor %}
     </div>
-{% endfor %}
+</div>
 
 {% endblock content %}

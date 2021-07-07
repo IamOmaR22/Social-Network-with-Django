@@ -73,11 +73,11 @@ My Profile
                             <td>{{ profile.get_friends_no }}</td>
                         </tr>
                         <tr>
-                            <td>Number of Friends</td>
+                            <td>Friends List</td>
                             <td>
                                 <ul>
                                     {% for friend in profile.get_friends %}
-                                    <li>{{ friend }}</li>
+                                    <p>{{ friend }}</p>
                                     {% endfor %}
                                 </ul>
                             </td>
