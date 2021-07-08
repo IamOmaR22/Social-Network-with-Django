@@ -90,6 +90,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'profiles.context_processors.profile_pic',   # From profiles/context_processors.py
                 'profiles.context_processors.invitations_received_no',   # From profiles/context_processors.py
+                'profiles.context_processors.logged_in_user_info',   # From profiles/context_processors.py
             ],
         },
     },

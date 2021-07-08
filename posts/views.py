@@ -111,3 +111,27 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
         else:
             form.add_error(None, "You need to be the author of the post in order to update it")
             return super().form_invalid(form)
+
+from django.db.models import Q
+def search(request):
+    q = request.GET['q']
+    if len(q) > 78:
+        allPosts = Post.objects.none()    # Blank/Empty query
+
+    else:
+        allPosts = Post.objects.filter(
+            Q(content__icontains=q) | Q(created__icontains=q)
+        )    
+        # allPostsContent = Post.objects.filter(content__icontains=q)
+        # allPostsImage = Post.objects.filter(image__icontains=q)
+
+        # allPosts = allPostsContent.union(allPostsImage)
+
+    if allPosts.count() == 0:
+        messages.warning(request, "No search results found. Please refine your search query!")
+
+    context = {
+        'allPosts': allPosts,
+        'q': q,
+    }
+    return render(request, 'posts/search.html', context)

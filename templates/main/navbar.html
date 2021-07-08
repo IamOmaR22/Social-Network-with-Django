@@ -39,9 +39,9 @@
                </div>
           </div>
                <div class="item" >
-                    <form action="" method="GET">
+                    <form action="{% url 'posts:search' %}" method="GET">
                         <div class="ui action left icon input" style="color: rgb(108, 234, 243);">
-                            <input class="prompt" type="text" name='q' placeholder="name of a friend..." style="background-color: #2D3748 !important; color: rgb(108, 234, 243);">
+                            <input class="prompt" type="text" id="query" name='q' placeholder="name of a friend..." style="background-color: #2D3748 !important; color: rgb(108, 234, 243);">
                             <i class="search icon"></i>
                             <button type='submit' class="ui button" style="background-color: #233046 !important; color: rgb(108, 234, 243);">Search</button>
                         </div>

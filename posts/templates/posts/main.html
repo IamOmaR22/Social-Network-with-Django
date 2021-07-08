@@ -73,7 +73,7 @@
                         <div class="ui segment mb-5">
                             <img class="ui avatar image" src={{c.user.avatar.url}}>
                             <span>{{ c.user }}</span>
-                            <div class='mt-5'>{{ c.body }}</div>
+                            <div class='mt-5' style="color: rgb(11, 43, 131);">{{ c.body }}</div>
                         </div>
                     
                     {% endfor %}
@@ -159,6 +159,11 @@
                 })
 
             })
+
+            
+            
+
+
         });
     </script>
 {% endblock scripts %}

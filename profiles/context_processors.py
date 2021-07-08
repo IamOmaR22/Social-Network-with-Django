@@ -14,3 +14,14 @@ def invitations_received_no(request):  # Go to settings.py and register this.
         qs_count = Relationship.objects.invitations_received(profile_obj).count()
         return {'invites_num': qs_count}
     return {}
+
+def logged_in_user_info(request):
+    if request.user.is_authenticated:
+        user_obj = Profile.objects.get(user=request.user)
+        return {'user_obj': user_obj}
+    return {}
+
+'''
+Create context processors here, then register it settings.py. Then you can use this
+wherever you want.
+'''
