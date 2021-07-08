@@ -98,7 +98,7 @@ Home
   
 
 
-
+{% if user.is_authenticated %}
 <!-- Page Contents -->
 <div class="pusher">
   <div class="ui inverted vertical center aligned segment" style="background-color: #305194;">
@@ -173,10 +173,86 @@ Home
       <a class="ui large button">I'm Still Quite Interested</a> -->
     </div>
   </div>
+</div>
+{% else %}
+
+<!-- Page Contents -->
+<div class="pusher">
+  <div class="ui inverted vertical center aligned segment" style="background-color: #305194;">
+
+    <!-- <div class="ui container">
+      <div class="ui large secondary inverted pointing menu">
+        {{ hello }}
+        <br>
+        {{ user }}
+      </div>
+    </div> -->
+
+    <div class="ui text container">
+      <h1 class="ui inverted header">
+       !! Welcome To FLBook !!
+      </h1>
+      <h2>Do whatever you want when you want to.</h2>
+      <h2>This Is A Social Network Website. You Can Post Here, Can Make Friends Here, Etc.....</h2>
+      <div class="ui huge primary button"><a href="{% url 'account_login' %}" style="color: beige;">Login To See <i class="right arrow icon"></i></a></div>
+    </div>
+
+  </div>
+
+  <div class="ui vertical stripe segment">
+    <div class="ui middle aligned stackable grid container">
+      <div class="row">
+        <div class="eight wide column">
+            <h1 style="color: rgb(223, 178, 55);">If anyone wants to make Friends, Send a request to each other.</h1>
+        </div>
+        <div class="six wide right floated column">
+          {% load static %}
+          <img src="{% static 'images/simg.png' %}" class="ui large bordered rounded image">
+        </div>
+      </div>
+      <div class="row">
+        <div class="center aligned column">
+          <!-- <a class="ui huge button">Check Them Out</a> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="ui vertical stripe quote segment">
+    <div class="ui equal width stackable internally celled grid">
+      <div class="center aligned row">
+        <div class="column">
+          <h3>"Still Developing!!"</h3>
+          <p>I will update it later. Kep your eyes on it!!</p>
+        </div>
+        <div class="column">
+          <h3>"I shouldn't have gone with their competitor."</h3>
+          <p>
+            <!-- <img src="assets/images/avatar/nan.jpg" class="ui avatar image"> <b>Nan</b> Chief Fun Officer Acme Toys -->
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ui vertical stripe segment">
+    <div class="ui text container">
+      <!-- <h3 class="ui header">Breaking The Grid, Grabs Your Attention</h3>
+      <p>Instead of focusing on content creation and hard work, we have learned how to master the art of doing nothing by providing massive amounts of whitespace and generic content that can seem massive, monolithic and worth your attention.</p>
+      <a class="ui large button">Read More</a> -->
+      <h4 class="ui horizontal header divider">
+        <!-- <a href="#">Case Studies</a> -->
+      </h4>
+      <!-- <h3 class="ui header">Did We Tell You About Our Bananas?</h3>
+      <p>Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but its really true. It took years of gene splicing and combinatory DNA research, but our bananas can really dance.</p>
+      <a class="ui large button">I'm Still Quite Interested</a> -->
+    </div>
+  </div>
 
 
 </div>
-
+{% endif %}
 
 {% endblock content %}
 

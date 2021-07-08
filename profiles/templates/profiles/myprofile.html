@@ -75,11 +75,21 @@ My Profile
                         <tr>
                             <td>Friends List</td>
                             <td>
-                                <ul>
+                                <!-- <ul>
                                     {% for friend in profile.get_friends %}
                                     <p>{{ friend }}</p>
                                     {% endfor %}
-                                </ul>
+                                </ul> -->
+                                <div class="ui list">
+                                    {% for friend in profile.get_friends %}
+                                        <div class="item">
+                                        <!-- <img class="ui avatar image" src="#"> -->
+                                        <div class="content">
+                                            <a class="header">{{ friend }}</a>
+                                        </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
                             </td>
                         </tr>
                         <tr>

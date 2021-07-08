@@ -154,6 +154,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
+    BASE_DIR / 'static',
     BASE_DIR / 'static_project',
     # BASE_DIR / 'posts' / 'static',
     # BASE_DIR / 'profiles' / 'static',

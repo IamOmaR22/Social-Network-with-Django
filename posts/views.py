@@ -8,6 +8,8 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+from django.db.models import Q
 # Create your views here.
 
 @login_required
@@ -112,7 +114,7 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
             form.add_error(None, "You need to be the author of the post in order to update it")
             return super().form_invalid(form)
 
-from django.db.models import Q
+
 def search(request):
     q = request.GET['q']
     if len(q) > 78:
